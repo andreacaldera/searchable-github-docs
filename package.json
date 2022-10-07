@@ -6,7 +6,7 @@
     "build:ts": "tsc",
     "dev": "next dev",
     "build": "next build",
-    "export": "next export",
+    "export": "next export -o docs",
     "start": "next start",
     "lint": "eslint src pages pages.spec e2e",
     "format": "prettier src pages --write",

@@ -13,7 +13,7 @@ import { MdxRemote } from "next-mdx-remote/types";
 const root = process.cwd();
 
 export function getFiles(type: string): string[] {
-  return fs.readdirSync(path.join(root, "docs", type));
+  return fs.readdirSync(path.join(root, "docs-source", type));
 }
 
 export interface FileBySlug {
@@ -33,8 +33,11 @@ export const getFileBySlug = async (
   slug?: string
 ): Promise<FileBySlug> => {
   const source = slug
-    ? fs.readFileSync(path.join(root, "docs", type, `${slug}.mdx`), "utf8")
-    : fs.readFileSync(path.join(root, "docs", `${type}.mdx`), "utf8");
+    ? fs.readFileSync(
+        path.join(root, "docs-source", type, `${slug}.mdx`),
+        "utf8"
+      )
+    : fs.readFileSync(path.join(root, "docs-source", `${type}.mdx`), "utf8");
 
   const { data, content } = matter(source);
   const mdxSource = await renderToString(content, {
@@ -64,11 +67,11 @@ export const getFileBySlug = async (
 type FileFontMatter = Record<string, any>[];
 
 export function getAllFilesFrontMatter(type: string): FileFontMatter {
-  const files = fs.readdirSync(path.join(root, "docs", type));
+  const files = fs.readdirSync(path.join(root, "docs-source", type));
 
   return files.reduce((allPosts, postSlug) => {
     const source = fs.readFileSync(
-      path.join(root, "docs", type, postSlug),
+      path.join(root, "docs-source", type, postSlug),
       "utf8"
     );
     const { data } = matter(source);
