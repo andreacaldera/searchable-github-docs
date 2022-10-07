@@ -1,0 +1,40 @@
+name: GitHub Pages deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get pnpm version
+        id: get-pnpm-version
+        run: |
+          PNPM_VERSION=$(jq -r '.engines.pnpm' < package.json)
+          echo "::set-output name=value::${PNPM_VERSION}"
+
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: ${{ steps.get-pnpm-version.outputs.value }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
+
+      - name: Install node modules
+        run: pnpm install
+
+      - name: Build my App
+        run: npm run build && npm run export && touch ./out/.nojekyll
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: public # The branch the action will deploy to
+          FOLDER: out # The folder the action will deploy to

@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "eslint src pages pages.spec e2e",
     "format": "prettier src pages --write",
-    "test": "jest src pages.spec"
+    "test": "jest src pages.spec",
+    "test-server": " http-server ./docs -p 3000"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@types/react": "17.0.20",
     "@types/styled-components": "^5.1.14",
-    "babel-plugin-styled-components": "^1.13.2"
+    "babel-plugin-styled-components": "^1.13.2",
+    "http-server": "^14.1.1"
   }
 }
