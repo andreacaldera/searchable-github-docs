@@ -29,7 +29,7 @@ jobs:
       - name: Install node modules
         run: pnpm install
 
-      - name: Build my App
+      - name: Build
         run: pnpm run build && pnpm run export && touch ./out/.nojekyll
 
       - name: Deploy
