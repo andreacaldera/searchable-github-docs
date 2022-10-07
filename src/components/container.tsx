@@ -1,27 +1,27 @@
-import React, { FC } from 'react';
-import { useColorMode, Button, Flex, Box } from '@chakra-ui/react';
-import NextLink from 'next/link';
-import styled from '@emotion/styled';
+import React, { FC } from "react";
+import { useColorMode, Button, Flex, Box } from "@chakra-ui/react";
+import NextLink from "next/link";
+import styled from "@emotion/styled";
 
-import DarkModeSwitch from './dark-mode-switch';
-import WithSubnavigation from './top.nav';
+import DarkModeSwitch from "./dark-mode-switch";
+import WithSubnavigation from "./top.nav";
 
 const Container: FC = ({ children }) => {
   const { colorMode } = useColorMode();
 
   const bgColor = {
-    light: 'white',
-    dark: '#171717',
+    light: "white",
+    dark: "#171717",
   };
 
   const color = {
-    light: 'black',
-    dark: 'white',
+    light: "black",
+    dark: "white",
   };
 
   const navHoverBg = {
-    light: 'gray.600',
-    dark: 'gray.300',
+    light: "gray.600",
+    dark: "gray.300",
   };
 
   const StickyNav = styled(Flex)`
