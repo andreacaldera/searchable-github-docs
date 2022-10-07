@@ -13,6 +13,12 @@
     "test": "jest src pages.spec",
     "test-server": " http-server ./docs -p 3000"
   },
+  "engines": {
+    "npm": "please-use-pnpm",
+    "yarn": "please-use-pnpm",
+    "node": "16",
+    "pnpm": "7.13.2"
+  },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
     "@chakra-ui/react": "^1.6.9",
