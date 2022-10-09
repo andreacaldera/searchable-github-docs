@@ -10,8 +10,7 @@ const MyDocument: FC = () => {
       <Head>
         <meta charSet="utf-8" />
         <meta name="description" content="Searchable Github documentation" />
-        <meta name="author" content="Searchable Github documentation" />
-        <link rel="shortcut icon" type="image/png" href="/favicon-32x32.png" />
+        <meta name="author" content="Andrea Caldera" />
       </Head>
       <body>
         <ColorModeScript />

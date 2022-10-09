@@ -1,19 +1,18 @@
 /* eslint-disable @next/next/no-page-custom-font */
 /* eslint-disable @next/next/google-font-display */
 /* eslint-disable @next/next/no-css-tags */
-import { AppProps } from 'next/app';
-import Head from 'next/head';
-import { FC } from 'react';
-import { useRouter } from 'next/dist/client/router';
+import { AppProps } from "next/app";
+import Head from "next/head";
+import { FC } from "react";
 import {
   ChakraProvider,
   useColorMode,
   ColorModeProvider,
-} from '@chakra-ui/react';
-import { prismLightTheme, prismDarkTheme } from '../styles/prism';
-import { css, Global } from '@emotion/react';
-import { customTheme } from '../styles/theme';
-import Container from '../src/components/container';
+} from "@chakra-ui/react";
+import { prismLightTheme, prismDarkTheme } from "../styles/prism";
+import { css, Global } from "@emotion/react";
+import { customTheme } from "../styles/theme";
+import Container from "../src/components/container";
 
 const GlobalStyle: FC = ({ children }) => {
   const { colorMode } = useColorMode();
@@ -28,7 +27,7 @@ const GlobalStyle: FC = ({ children }) => {
       </Head>
       <Global
         styles={css`
-          ${colorMode === 'light' ? prismLightTheme : prismDarkTheme};
+          ${colorMode === "light" ? prismLightTheme : prismDarkTheme};
           ::selection {
             background-color: #90cdf4;
             color: #fefefe;
@@ -45,7 +44,7 @@ const GlobalStyle: FC = ({ children }) => {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background: ${colorMode === 'light' ? 'white' : '#171717'};
+            background: ${colorMode === "light" ? "white" : "#171717"};
           }
         `}
       />
@@ -55,41 +54,21 @@ const GlobalStyle: FC = ({ children }) => {
 };
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
-  const router = useRouter();
-
-  const useBootstrap = router.pathname === '/';
-
-  const BootstrapHead = useBootstrap ? (
-    <Head>
-      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
-      <link
-        href="vendor/fontawesome-free/css/all.min.css"
-        rel="stylesheet"
-        type="text/css"
-      />
-      <link href="css/agency.min.css" rel="stylesheet" />
-    </Head>
-  ) : null;
-
   return (
-    <>
-      {BootstrapHead}
-      <ChakraProvider resetCSS theme={customTheme}>
-        <ColorModeProvider
-          options={{
-            initialColorMode: 'light',
-            useSystemColorMode: true,
-          }}
-        >
-          <GlobalStyle>
-            <Container>
-              <Component {...pageProps} />
-            </Container>
-          </GlobalStyle>
-        </ColorModeProvider>
-      </ChakraProvider>
-    </>
+    <ChakraProvider resetCSS theme={customTheme}>
+      <ColorModeProvider
+        options={{
+          initialColorMode: "light",
+          useSystemColorMode: true,
+        }}
+      >
+        <GlobalStyle>
+          <Container>
+            <Component {...pageProps} />
+          </Container>
+        </GlobalStyle>
+      </ColorModeProvider>
+    </ChakraProvider>
   );
 };
 
