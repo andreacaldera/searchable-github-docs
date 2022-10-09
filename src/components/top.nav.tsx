@@ -117,20 +117,8 @@ const DesktopNav = () => {
                 {navItem.children ? (
                   MenuLink
                 ) : (
-                  <NextLink href={navItem.href ?? "#"}>
-                    <Link
-                      p={2}
-                      href={navItem.href ?? "#"}
-                      fontSize={"sm"}
-                      fontWeight={500}
-                      color={linkColor}
-                      _hover={{
-                        textDecoration: "none",
-                        color: linkHoverColor,
-                      }}
-                    >
-                      {navItem.label}
-                    </Link>
+                  <NextLink href={navItem.href ?? "#"} legacyBehavior={false}>
+                    {navItem.label}
                   </NextLink>
                 )}
               </PopoverTrigger>
