@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 
 import { FileBySlug } from "../mdx";
-import styled from "styled-components";
 
 export const DocLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
   children,
