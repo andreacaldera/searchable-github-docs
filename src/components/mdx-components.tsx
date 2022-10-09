@@ -7,19 +7,19 @@ import {
   Text,
   Divider,
   useColorMode,
-} from '@chakra-ui/react';
-import NextLink from 'next/link';
-import { FC } from 'react';
+} from "@chakra-ui/react";
+import NextLink from "next/link";
+import { FC } from "react";
 
 const CustomLink: FC<any> = (props) => {
   const { colorMode } = useColorMode();
   const color = {
-    light: 'blue.500',
-    dark: 'blue.500',
+    light: "blue.500",
+    dark: "blue.500",
   };
 
   const href = props.href;
-  const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
+  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
 
   if (isInternalLink) {
     return (
@@ -35,8 +35,8 @@ const CustomLink: FC<any> = (props) => {
 const Quote: FC<any> = (props) => {
   const { colorMode } = useColorMode();
   const bgColor = {
-    light: 'blue.50',
-    dark: 'blue.900',
+    light: "blue.50",
+    dark: "blue.900",
   };
 
   return (
@@ -47,7 +47,7 @@ const Quote: FC<any> = (props) => {
       variant="left-accent"
       status="info"
       css={{
-        '> *:first-of-type': {
+        "> *:first-of-type": {
           marginTop: 0,
           marginLeft: 8,
         },
@@ -60,19 +60,19 @@ const Quote: FC<any> = (props) => {
 const DocsHeading: FC<{ id: string }> = ({ children, id, ...rest }) => (
   <Heading
     css={{
-      scrollMarginTop: '100px',
-      scrollSnapMargin: '100px',
-      '&[id]': {
-        pointerEvents: 'none',
+      scrollMarginTop: "100px",
+      scrollSnapMargin: "100px",
+      "&[id]": {
+        pointerEvents: "none",
       },
-      '&[id]:before': {
-        display: 'block',
-        height: ' 6rem',
-        marginTop: '-6rem',
-        visibility: 'hidden',
+      "&[id]:before": {
+        display: "block",
+        height: " 6rem",
+        marginTop: "-6rem",
+        visibility: "hidden",
         content: `""`,
       },
-      '&[id]:hover a': { opacity: 1 },
+      "&[id]:hover a": { opacity: 1 },
     }}
     {...rest}
     mb="1em"
@@ -89,7 +89,7 @@ const DocsHeading: FC<{ id: string }> = ({ children, id, ...rest }) => (
           outline="none"
           _focus={{
             opacity: 1,
-            boxShadow: 'outline',
+            boxShadow: "outline",
           }}
           opacity="0"
           ml="0.375rem"
@@ -105,8 +105,8 @@ const DocsHeading: FC<{ id: string }> = ({ children, id, ...rest }) => (
 const Hr: FC = () => {
   const { colorMode } = useColorMode();
   const borderColor = {
-    light: 'gray.200',
-    dark: 'gray.600',
+    light: "gray.200",
+    dark: "gray.600",
   };
 
   return <Divider borderColor={borderColor[colorMode]} my={4} w="100%" />;
@@ -142,5 +142,4 @@ const MDXComponents = {
   blockquote: Quote,
 };
 
-export { CustomLink };
-export default MDXComponents;
+export { CustomLink, MDXComponents };

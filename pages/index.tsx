@@ -6,6 +6,7 @@ const Home: React.FC = () => {
       <Head>
         <title>Searchable Github documentation</title>
       </Head>
+
       <h1>Welcome to Searchable Github docs</h1>
     </>
   );

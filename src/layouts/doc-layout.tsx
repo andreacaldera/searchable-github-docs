@@ -30,7 +30,7 @@ const ContentWrapper = styled.div`
   }
 `;
 
-export const BlogLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
+export const DocLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
   children,
   frontMatter,
 }) => {
@@ -47,8 +47,6 @@ export const BlogLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
         spacing={8}
         justifyContent="center"
         alignItems="flex-start"
-        m="0 auto 4rem auto"
-        width={["95%", "90%", "80%", "60%"]}
         px={2}
       >
         <Flex

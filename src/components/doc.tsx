@@ -3,8 +3,15 @@ import NextLink from "next/link";
 import { useColorMode, Heading, Text, Flex, Box, Link } from "@chakra-ui/react";
 import { parseISO, format } from "date-fns";
 import { FC } from "react";
+import { SummaryData } from "../mdx";
 
-const BlogPost: FC<any> = ({ category, title, publishedAt, summary, slug }) => {
+const Doc: FC<SummaryData & { category: string }> = ({
+  category,
+  title,
+  publishedAt,
+  summary,
+  slug,
+}) => {
   const { colorMode } = useColorMode();
   const secondaryTextColor = {
     light: "gray.700",
@@ -48,4 +55,4 @@ const BlogPost: FC<any> = ({ category, title, publishedAt, summary, slug }) => {
   );
 };
 
-export default BlogPost;
+export default Doc;

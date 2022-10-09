@@ -15,12 +15,17 @@ import {
   getAllFilesFrontMatter,
   getCategories,
 } from "../src/mdx";
-import BlogPost from "../src/components/blog-post";
+import Doc from "../src/components/doc";
 
 import { SearchIcon } from "@chakra-ui/icons";
 import { GetStaticPaths, GetStaticProps } from "next";
+import styled from "styled-components";
 
-const Blog: FC<{ docs: FileFontMatter; category: string }> = ({
+const CategoryDiv = styled.span`
+  text-transform: uppercase;
+`;
+
+const Page: FC<{ docs: FileFontMatter; category: string }> = ({
   docs,
   category,
 }) => {
@@ -49,18 +54,16 @@ const Blog: FC<{ docs: FileFontMatter; category: string }> = ({
         spacing={8}
         justifyContent="center"
         alignItems="flex-start"
-        m="0 auto auto auto"
-        minWidth="70%"
       >
         <Flex
           flexDirection="column"
           justifyContent="flex-start"
           alignItems="flex-start"
           minWidth="100%"
-          px={4}
         >
           <Heading letterSpacing="tight" mb={4} as="h1" size="2xl">
-            {category} ({docs.length} pages)
+            <CategoryDiv>{category.replaceAll("-", " ")}</CategoryDiv> (
+            {docs.length} pages)
           </Heading>
           <InputGroup mb={4} mr={4} w="100%">
             <Input
@@ -74,11 +77,7 @@ const Blog: FC<{ docs: FileFontMatter; category: string }> = ({
           </InputGroup>
           {!filteredBlogPosts.length && "No documentation found :("}
           {filteredBlogPosts.map((frontMatter) => (
-            <BlogPost
-              category={category}
-              key={frontMatter.title}
-              {...frontMatter}
-            />
+            <Doc category={category} key={frontMatter.title} {...frontMatter} />
           ))}
         </Flex>
       </Stack>
@@ -106,4 +105,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return { props: { docs, category } };
 };
 
-export default Blog;
+export default Page;

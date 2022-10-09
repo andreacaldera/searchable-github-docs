@@ -7,7 +7,7 @@ import readingTime, { ReadTimeResults } from "reading-time";
 
 import renderToString from "next-mdx-remote/render-to-string";
 
-import MDXComponents from "./components/mdx-components";
+import { MDXComponents } from "./components/mdx-components";
 import { MdxRemote } from "next-mdx-remote/types";
 
 const root = process.cwd();
@@ -73,7 +73,7 @@ export const getFileBySlug = async (
   };
 };
 
-type SummaryData = { slug: string; content: string } & FileData;
+export type SummaryData = { slug: string; content: string } & FileData;
 
 export type FileFontMatter = ReadonlyArray<SummaryData>;
 

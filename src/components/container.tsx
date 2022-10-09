@@ -1,10 +1,13 @@
 import React, { FC } from "react";
-import { useColorMode, Button, Flex, Box } from "@chakra-ui/react";
-import NextLink from "next/link";
+import {
+  useColorMode,
+  Flex,
+  Container as CharkaContainer,
+} from "@chakra-ui/react";
+
 import styled from "@emotion/styled";
 
-import DarkModeSwitch from "./dark-mode-switch";
-import WithSubnavigation from "./top.nav";
+import WithSubnavigation from "./top-nav";
 
 const Container: FC = ({ children }) => {
   const { colorMode } = useColorMode();
@@ -17,11 +20,6 @@ const Container: FC = ({ children }) => {
   const color = {
     light: "black",
     dark: "white",
-  };
-
-  const navHoverBg = {
-    light: "gray.600",
-    dark: "gray.300",
   };
 
   const StickyNav = styled(Flex)`
@@ -48,40 +46,10 @@ const Container: FC = ({ children }) => {
         mx="auto"
       >
         <WithSubnavigation />
-        {/* <Box>
-          <NextLink href="/" passHref>
-            <Button
-              as="a"
-              variant="ghost"
-              p={[1, 2, 4]}
-              _hover={{ backgroundColor: navHoverBg[colorMode] }}
-            >
-              Home
-            </Button>
-          </NextLink>
-          <NextLink href="/blog" passHref>
-            <Button
-              as="a"
-              variant="ghost"
-              p={[1, 2, 4]}
-              _hover={{ backgroundColor: navHoverBg[colorMode] }}
-            >
-              Blog
-            </Button>
-          </NextLink>
-        </Box> */}
       </StickyNav>
-      <Flex
-        as="main"
-        justifyContent="center"
-        flexDirection="column"
-        bg={bgColor[colorMode]}
-        color={color[colorMode]}
-        px={[0, 4, 4]}
-        mt={[4, 8, 8]}
-      >
+      <CharkaContainer maxW="1024px" color={color[colorMode]}>
         {children}
-      </Flex>
+      </CharkaContainer>
     </>
   );
 };

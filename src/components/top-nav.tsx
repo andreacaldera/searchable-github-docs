@@ -24,8 +24,6 @@ import {
 import DarkModeSwitch from "./dark-mode-switch";
 import NextLink from "next/link";
 
-// https://chakra-templates.dev/navigation/navbar
-
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
@@ -274,5 +272,9 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Decision logs",
     href: "/decision-logs",
+  },
+  {
+    label: "Post mortem",
+    href: "/post-mortem",
   },
 ];
