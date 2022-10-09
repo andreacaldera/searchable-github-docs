@@ -15,7 +15,6 @@ export const Blog: FC<FileBySlug> = ({ mdxSource, frontMatter }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const categories = await getCategories();
-  console.log({ categories });
   const posts = await Promise.all(
     categories.map(async (category) => {
       const files = await getFiles(category);

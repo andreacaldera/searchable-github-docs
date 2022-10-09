@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Head from "next/head";
+
 import { parseISO, format } from "date-fns";
 import {
   useColorMode,
@@ -9,9 +9,26 @@ import {
   Stack,
   Avatar,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 
 import { FileBySlug } from "../mdx";
+import styled from "styled-components";
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  h2 {
+    border-bottom: 2px solid lightgrey;
+    width: 100%;
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    border-bottom: 0.5px solid lightgrey;
+    width: 80%;
+    margin-top: 1.5rem;
+    margin-bottom: 1em;
+  }
+`;
 
 export const BlogLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
   children,
@@ -22,13 +39,9 @@ export const BlogLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
     light: "gray.700",
     dark: "gray.400",
   };
-  const router = useRouter();
-  const slug = router.asPath.replace("/blog", "");
+
   return (
     <>
-      <Head>
-        <title>{slug} - Searchable Github documentation</title>
-      </Head>
       <Stack
         as="article"
         spacing={8}
@@ -56,13 +69,7 @@ export const BlogLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
             mb={4}
           >
             <Flex align="center">
-              <Avatar
-                size="xs"
-                name="Andrea Caldera"
-                //
-                // fix image src="../images/portrait.jpeg"
-                mr={2}
-              />
+              <Avatar size="xs" name="Andrea Caldera" mr={2} />
               <Text fontSize="sm" color={textColor[colorMode]}>
                 {frontMatter.by}
                 {"Andrea Caldera / "}
@@ -74,7 +81,7 @@ export const BlogLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
             </Text>
           </Flex>
         </Flex>
-        {children}
+        <ContentWrapper>{children}</ContentWrapper>
       </Stack>
     </>
   );

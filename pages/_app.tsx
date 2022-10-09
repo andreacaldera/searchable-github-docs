@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-page-custom-font */
-/* eslint-disable @next/next/google-font-display */
-/* eslint-disable @next/next/no-css-tags */
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { FC } from "react";
@@ -58,7 +55,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
     <ChakraProvider resetCSS theme={customTheme}>
       <ColorModeProvider
         options={{
-          initialColorMode: "light",
+          initialColorMode: "dark",
           useSystemColorMode: true,
         }}
       >

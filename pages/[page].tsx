@@ -8,34 +8,35 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
+import { fuzzy } from "fast-fuzzy";
 
-import { getAllFilesFrontMatter, getCategories } from "../src/mdx";
+import {
+  FileFontMatter,
+  getAllFilesFrontMatter,
+  getCategories,
+} from "../src/mdx";
 import BlogPost from "../src/components/blog-post";
 
 import { SearchIcon } from "@chakra-ui/icons";
 import { GetStaticPaths, GetStaticProps } from "next";
 
-type Post = {
-  publishedAt: string;
-  title: string;
-  summary: string;
-};
-
-const Blog: FC<{ docs: Post[]; category: string }> = ({ docs, category }) => {
+const Blog: FC<{ docs: FileFontMatter; category: string }> = ({
+  docs,
+  category,
+}) => {
   const [searchValue, setSearchValue] = useState("");
 
-  const filteredBlogPosts = docs
+  const filteredBlogPosts = [...docs]
     .sort(
       (a, b) =>
         Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))
     )
     .filter((frontMatter) => {
-      const search = searchValue.toLowerCase();
-      const { title, summary } = frontMatter;
-      return (
-        title.toLowerCase().includes(search) ||
-        summary.toLocaleLowerCase().includes(search)
-      );
+      const { title, summary, content } = frontMatter;
+      const score = fuzzy(searchValue, `${title} ${summary} ${content}`, {
+        ignoreCase: true,
+      });
+      return score > 0.7;
     });
 
   return (
@@ -74,7 +75,7 @@ const Blog: FC<{ docs: Post[]; category: string }> = ({ docs, category }) => {
           {!filteredBlogPosts.length && "No documentation found :("}
           {filteredBlogPosts.map((frontMatter) => (
             <BlogPost
-              category="decision-logs"
+              category={category}
               key={frontMatter.title}
               {...frontMatter}
             />

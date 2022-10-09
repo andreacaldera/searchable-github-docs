@@ -27,6 +27,7 @@
     "@emotion/styled": "^11",
     "date-fns": "^2.25.0",
     "emotion-theming": "^11.0.0",
+    "fast-fuzzy": "^1.11.2",
     "framer-motion": "^4",
     "gray-matter": "^4.0.3",
     "mdx-prism": "^0.3.4",

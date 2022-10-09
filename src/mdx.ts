@@ -34,6 +34,13 @@ export interface FileBySlug {
   };
 }
 
+type FileData = {
+  title: string;
+  summary: string;
+  by: string;
+  publishedAt: string;
+};
+
 export const getFileBySlug = async (
   type: string,
   slug?: string
@@ -61,15 +68,16 @@ export const getFileBySlug = async (
       wordCount: content.split(/\s+/gu).length,
       readingTime: readingTime(content),
       slug: slug || null,
-      ...(data as { title: string; by: string; publishedAt: string }),
+      ...(data as FileData),
     },
   };
 };
 
-// todo fix type
-type FileFontMatter = Record<string, any>[];
+type SummaryData = { slug: string; content: string } & FileData;
 
-export function getAllFilesFrontMatter(type: string): FileFontMatter {
+export type FileFontMatter = ReadonlyArray<SummaryData>;
+
+export const getAllFilesFrontMatter = (type: string) => {
   const files = fs.readdirSync(path.join(root, docsFolder, type));
 
   return files.reduce((allPosts, postSlug) => {
@@ -77,14 +85,15 @@ export function getAllFilesFrontMatter(type: string): FileFontMatter {
       path.join(root, docsFolder, type, postSlug),
       "utf8"
     );
-    const { data } = matter(source);
+    const { data, content } = matter(source);
 
     return [
       {
-        ...data,
+        ...(data as FileData),
+        content,
         slug: postSlug.replace(".mdx", ""),
       },
       ...allPosts,
     ];
   }, [] as FileFontMatter);
-}
+};
