@@ -57,9 +57,17 @@ const Quote: FC<any> = (props) => {
   );
 };
 
-const DocsHeading: FC<{ id: string }> = ({ children, id, ...rest }) => (
+const DocsHeading: FC<{ id: string; as: string }> = ({
+  children,
+  id,
+  as,
+  ...rest
+}) => (
   <Heading
     css={{
+      borderBottom:
+        as === "h2" ? "2px solid lightgrey" : "0.5px solid lightgrey",
+      width: as === "h2" ? "100%" : "80%",
       scrollMarginTop: "100px",
       scrollSnapMargin: "100px",
       "&[id]": {

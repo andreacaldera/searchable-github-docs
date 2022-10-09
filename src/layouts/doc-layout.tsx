@@ -8,27 +8,11 @@ import {
   Flex,
   Stack,
   Avatar,
+  Box,
 } from "@chakra-ui/react";
 
 import { FileBySlug } from "../mdx";
 import styled from "styled-components";
-
-const ContentWrapper = styled.div`
-  width: 100%;
-  h2 {
-    border-bottom: 2px solid lightgrey;
-    width: 100%;
-    font-size: 2rem;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-  }
-  h3 {
-    border-bottom: 0.5px solid lightgrey;
-    width: 80%;
-    margin-top: 1.5rem;
-    margin-bottom: 1em;
-  }
-`;
 
 export const DocLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
   children,
@@ -79,7 +63,7 @@ export const DocLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
             </Text>
           </Flex>
         </Flex>
-        <ContentWrapper>{children}</ContentWrapper>
+        <Box width="100%">{children}</Box>
       </Stack>
     </>
   );
