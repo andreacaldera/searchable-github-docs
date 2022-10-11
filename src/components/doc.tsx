@@ -45,7 +45,9 @@ const Doc: FC<SummaryData & { category: string }> = ({
               textAlign={["left", "right"]}
               mb={[4, 0]}
             >
-              {format(parseISO(publishedAt), "MMMM dd, yyyy")}
+              {publishedAt
+                ? format(parseISO(publishedAt), "MMMM dd, yyyy")
+                : "N/A"}
             </Text>
           </Flex>
           <Text color={secondaryTextColor[colorMode]}>{summary}</Text>

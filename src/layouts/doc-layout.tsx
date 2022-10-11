@@ -54,7 +54,9 @@ export const DocLayout: FC<{ frontMatter: FileBySlug["frontMatter"] }> = ({
               <Text fontSize="sm" color={textColor[colorMode]}>
                 {frontMatter.by}
                 {"Andrea Caldera / "}
-                {format(parseISO(frontMatter.publishedAt), "MMMM dd, yyyy")}
+                {frontMatter.publishedAt
+                  ? format(parseISO(frontMatter.publishedAt), "MMMM dd, yyyy")
+                  : "N/A"}
               </Text>
             </Flex>
             <Text fontSize="sm" color="gray.500" minWidth="100px" mt={[2, 0]}>

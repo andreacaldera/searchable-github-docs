@@ -1,7 +1,6 @@
 import fs from "fs";
 import matter from "gray-matter";
-// @ts-ignore
-import mdxPrism from "mdx-prism";
+
 import path from "path";
 import readingTime, { ReadTimeResults } from "reading-time";
 
@@ -43,13 +42,18 @@ type FileData = {
 
 export const getFileBySlug = async (
   type: string,
-  slug?: string
+  slug: string
 ): Promise<FileBySlug> => {
-  const source = slug
-    ? fs.readFileSync(path.join(root, docsFolder, type, `${slug}.mdx`), "utf8")
-    : fs.readFileSync(path.join(root, docsFolder, `${type}.mdx`), "utf8");
+  console.log("get file by slug");
+  const isMdx = fs.existsSync(path.join(root, docsFolder, type, `${slug}.mdx`));
+  const filename = isMdx ? `${slug}.mdx` : `${slug}.md`;
+  const source = fs.readFileSync(
+    path.join(root, docsFolder, type, filename),
+    "utf8"
+  );
 
   const { data, content } = matter(source);
+  console.log(JSON.stringify(content, null, 2), JSON.stringify(data, null, 2));
   const mdxSource = await renderToString(content, {
     components: MDXComponents,
     mdxOptions: {
@@ -58,7 +62,7 @@ export const getFileBySlug = async (
         require("remark-slug"),
         require("remark-code-titles"),
       ],
-      rehypePlugins: [mdxPrism],
+      rehypePlugins: [require("mdx-prism")],
     },
   });
 
@@ -86,12 +90,19 @@ export const getAllFilesFrontMatter = (type: string) => {
       "utf8"
     );
     const { data, content } = matter(source);
+    const fileData = !Object.keys(data).length
+      ? {
+          title: content
+            .substring(content.indexOf("#") + 1, content.indexOf("\n"))
+            .trim(),
+        }
+      : data;
 
     return [
       {
-        ...(data as FileData),
+        ...(fileData as FileData),
         content,
-        slug: postSlug.replace(".mdx", ""),
+        slug: postSlug.replace(".mdx", "").replace(".md", ""),
       },
       ...allPosts,
     ];

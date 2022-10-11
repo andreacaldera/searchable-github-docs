@@ -15,10 +15,14 @@ export const Blog: FC<FileBySlug> = ({ mdxSource, frontMatter }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const categories = await getCategories();
+
   const posts = await Promise.all(
     categories.map(async (category) => {
       const files = await getFiles(category);
-      return files.map((file) => [category, file.replace(/\.mdx/, "")]);
+      return files.map((file) => [
+        category,
+        file.replace(/\.mdx/, "").replace(/\.md/, ""),
+      ]);
     })
   );
 
