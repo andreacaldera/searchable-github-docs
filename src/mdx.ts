@@ -4,10 +4,9 @@ import matter from "gray-matter";
 import path from "path";
 import readingTime, { ReadTimeResults } from "reading-time";
 
-import renderToString from "next-mdx-remote/render-to-string";
+import { serialize } from "next-mdx-remote/serialize";
 
-import { MDXComponents } from "./components/mdx-components";
-import { MdxRemote } from "next-mdx-remote/types";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 const root = process.cwd();
 
@@ -22,7 +21,10 @@ export function getFiles(type: string): string[] {
 }
 
 export interface FileBySlug {
-  mdxSource: MdxRemote.Source;
+  mdxSource: MDXRemoteSerializeResult<
+    Record<string, unknown>,
+    Record<string, string>
+  >;
   frontMatter: {
     wordCount: number;
     readingTime: ReadTimeResults;
@@ -44,28 +46,14 @@ export const getFileBySlug = async (
   type: string,
   slug: string
 ): Promise<FileBySlug> => {
-  console.log("get file by slug");
   const isMdx = fs.existsSync(path.join(root, docsFolder, type, `${slug}.mdx`));
   const filename = isMdx ? `${slug}.mdx` : `${slug}.md`;
   const source = fs.readFileSync(
     path.join(root, docsFolder, type, filename),
     "utf8"
   );
-
   const { data, content } = matter(source);
-  console.log(JSON.stringify(content, null, 2), JSON.stringify(data, null, 2));
-  const mdxSource = await renderToString(content, {
-    components: MDXComponents,
-    mdxOptions: {
-      remarkPlugins: [
-        require("remark-autolink-headings"),
-        require("remark-slug"),
-        require("remark-code-titles"),
-      ],
-      rehypePlugins: [require("mdx-prism")],
-    },
-  });
-
+  const mdxSource = await serialize(source);
   return {
     mdxSource,
     frontMatter: {
