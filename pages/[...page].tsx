@@ -9,7 +9,7 @@ import { GetStaticProps, GetStaticPaths } from "next";
 export const Blog: FC<FileBySlug> = ({ mdxSource, frontMatter }) => {
   return (
     <DocLayout frontMatter={frontMatter}>
-      <MDXRemote {...mdxSource} components={MDXComponents} />;
+      <MDXRemote {...mdxSource} components={MDXComponents} />
     </DocLayout>
   );
 };

@@ -68,7 +68,7 @@ const Page: FC<{ docs: FileFontMatter; category: string }> = ({
           <InputGroup mb={4} mr={4} w="100%">
             <Input
               aria-label="Search by title / summary"
-              placeholder="Search by title  / summary"
+              placeholder="Search by title / summary"
               onChange={(e) => setSearchValue(e.target.value)}
             />
             <InputRightElement>
